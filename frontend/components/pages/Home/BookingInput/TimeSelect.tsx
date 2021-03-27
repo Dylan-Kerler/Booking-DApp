@@ -15,7 +15,12 @@ const CardsContainer = styled.div`
     }
 `;
 
-export const TimeSelect = () => {
+interface Props {
+    onChange: (value: number) => void,
+    value: number,
+}
+
+export const TimeSelect = ({ onChange, value }: Props) => {
     return (
         <Container>
             <div>Select a time</div>
@@ -26,7 +31,8 @@ export const TimeSelect = () => {
                         .fill(null)
                         .map((_, i) =>
                             <TimeCard
-                                onClick={() => {}}
+                                onClick={() => onChange(i)}
+                                isSelected={value === i}
                                 value={i}
                             />
                         )
@@ -36,12 +42,13 @@ export const TimeSelect = () => {
     );
 };
 
-const TimeCardContainer = styled.div`
+const TimeCardContainer = styled.div<{ isSelected: boolean }>`
     padding: 12px;
-    background-color: rgba(0,0,0,0.04);
     border-radius: 2px;
     width: 64px;
     text-align: center;
+    background-color: ${({ theme, isSelected }) => isSelected ? theme.colors.primary : "rgba(0,0,0,0.04)"};
+    color:  ${({ theme, isSelected }) => isSelected ? "white" : ""};
 
     transition: all 0.1s ease-out;
     &:hover {
@@ -55,9 +62,12 @@ const TimeCardContainer = styled.div`
     }
 `;
 
-const TimeCard = ({ value, onClick }: { value: number, onClick: () => void }) => {
+const TimeCard = (
+    { value, onClick, isSelected }: 
+    { value: number, onClick: () => void, isSelected: boolean }
+) => {
     return (
-        <TimeCardContainer onClick={onClick}>
+        <TimeCardContainer onClick={onClick} isSelected={isSelected}>
             {value}:00
         </TimeCardContainer>
     );

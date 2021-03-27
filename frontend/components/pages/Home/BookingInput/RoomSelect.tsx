@@ -9,20 +9,30 @@ const Container = styled.div`
 const CardsContainer = styled.div`
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
 
     > div {
+        margin-right: 12px;
         margin-bottom: 12px;
     }
 `;
 
-export const RoomSelect = () => {
+interface Props {
+    onChange: (value: number) => void,
+    value: number,
+}
+
+export const RoomSelect = ({ value, onChange }: Props) => {
     return (
         <Container>
             <div>Select a room</div>
             <CardsContainer>
                 {
-                    [1,2,3,4,5,6].map(index => <RoomCard/>)
+                    [0, 1,2,3,4,5,6].map(index => 
+                        <RoomCard
+                            onClick={() => onChange(index)}
+                            isSelected={value === index}
+                        />
+                    )
                 }
             </CardsContainer>
         </Container>

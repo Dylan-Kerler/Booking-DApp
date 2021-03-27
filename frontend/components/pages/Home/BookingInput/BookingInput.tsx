@@ -3,22 +3,72 @@ import { RoomSelect } from "./RoomSelect"
 import styled from "styled-components";
 import { TimeSelect } from "./TimeSelect";
 import { Button } from "../../../core/Button";
+import { useContext, useState } from "react";
+import { TabSquareNav } from "../../../core/TabSquareNav";
+import { EthersContext } from "../../../../context/EthersContext";
+import { useRecoilState, useResetRecoilState } from "recoil";
+import { notificationsState } from "../../../layout/Notifications";
+import { shortenAddress } from "../../../../utils/helpers";
 
 const Container = styled.div`
     display: grid;
-    row-gap: 12px;
+    row-gap: 24px;
 `;
 
+export const COMPANIES = {
+    cocaCola: { label: "Coca Cola", value: 1 },
+    pepsi: { label: "Pepsi", value: 2 },
+};
+
 export const BookingInput = () => {
+    const { signer, BookingsContract } = useContext(EthersContext);
+    const [notifications, setNotifications] = useRecoilState(notificationsState);
+    const [selectedCompany, setSelectedCompany] = useState(COMPANIES.cocaCola.value);
+    const [selectedTime, setSelectedTime] = useState(0);
+    const [selectedRoom, setSelectedRoom] = useState(0);
+
+    console.log(selectedRoom, selectedTime, selectedCompany)
+
     return (
         <Container>
             <MainTitle>Book a room.</MainTitle>
 
-            
-            <RoomSelect/>
-            <TimeSelect/>
+            <TabSquareNav
+                selected={selectedCompany}
+                onChange={(e) => setSelectedCompany(e as number)}
+                items={Object.values(COMPANIES)}
+            />
 
-            <Button style={{ width: 240, justifySelf: "right", }}>
+            <TimeSelect
+                onChange={setSelectedTime}
+                value={selectedTime}
+            />
+
+            <RoomSelect
+                onChange={setSelectedRoom}
+                value={selectedRoom}
+            />
+
+            <Button 
+                style={{ width: 240, justifySelf: "right", }}
+                onClick={async () => {
+                    try {
+                        const tx = await BookingsContract.addReservation(1, 1, 1);
+                        const { transactionHash, status, } = await tx.wait();
+                        setNotifications(notifications.concat({ 
+                            content: `Confirmed Tx: ${shortenAddress(transactionHash)}`, 
+                            timestamp: Date.now(),
+                        }));
+                    } catch (e) {
+                        console.error(e);
+                        setNotifications(notifications.concat({ 
+                            content: `Failed Transaction`, 
+                            timestamp: Date.now(),
+                            isError: true,
+                        }));
+                    }
+                }}
+            >
                 Book Room
             </Button>
         </Container>

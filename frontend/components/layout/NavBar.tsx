@@ -3,10 +3,12 @@ import { Button } from "../core/Button";
 import { MinorTitle } from "../core/Typography";
 import Web3Modal from "web3modal";
 import { ethers } from "ethers";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { EthersContext } from "../../context/EthersContext";
 import { useAccount } from "../../utils/hooks";
 import { shortenAddress } from "../../utils/helpers";
+import Hamburger from 'hamburger-react';
+import { Menu } from "./Menu";
 
 const Container = styled.div`
     background-color: white;
@@ -14,16 +16,30 @@ const Container = styled.div`
     grid-template-columns: 1fr auto;
     align-items: center;
     margin-bottom: 18px;
-    height: 24px;
+    height: 64px;
 `;
 
 export const NavBar = () => {
     const { setSigner, signer } = useContext(EthersContext);
     const { address } = useAccount();
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     return (
         <Container>
-            <MinorTitle>Bookio.</MinorTitle>
+            <div style={{ display: "flex", alignItems: "center", marginLeft: -12 }}>
+                <Hamburger 
+                    size={24}
+                    toggled={isMenuOpen}
+                    toggle={setIsMenuOpen}
+                />
+
+                <MinorTitle style={{ marginLeft: 6 }}>Bookio.</MinorTitle>
+            </div>
+
+            {
+                isMenuOpen &&
+                    <Menu onSelect={() => setIsMenuOpen(false)}/>
+            }
 
             {
                 address ?
@@ -53,10 +69,7 @@ export const NavBar = () => {
 
                             web3Modal.clearCachedProvider();
                             const web3Provider = await web3Modal.connect();
-                            console.log(web3Provider)
                             const ethersProvider = new ethers.providers.Web3Provider(web3Provider);
-
-                            console.log(ethersProvider);
                             setSigner(ethersProvider.getSigner());
                         }}
                     >
