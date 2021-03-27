@@ -18,12 +18,20 @@
                 "abi",
                 "evm.bytecode",
                 "evm.deployedBytecode",
-                "evm.methodIdentifiers"
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
               ],
               "": [
                 "ast"
               ]
             }
+          },
+          "metadata": {
+            "useLiteralContent": true
           }
         }
       },
@@ -54,12 +62,20 @@
                 "abi",
                 "evm.bytecode",
                 "evm.deployedBytecode",
-                "evm.methodIdentifiers"
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
               ],
               "": [
                 "ast"
               ]
             }
+          },
+          "metadata": {
+            "useLiteralContent": true
           }
         }
       },
