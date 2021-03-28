@@ -52,3 +52,12 @@ Go to http://localhost:3000 and "Connect Wallet"
 If transactions are failing then open the console. All of the logs are in there so it should indicate what the issue is.
 
 If you get a "Failed to fetch" error on the website then restart `docker-compose up`.
+
+## Screenshots
+
+![Screenshot from 2021-03-28 14-51-53](https://user-images.githubusercontent.com/37438950/112754698-2c5c8900-8fd5-11eb-9e7d-c44297e8d6ac.png)
+
+![Screenshot from 2021-03-28 14-52-24](https://user-images.githubusercontent.com/37438950/112754740-5910a080-8fd5-11eb-91d8-1828a386e592.png)
+
+![Screenshot from 2021-03-28 14-52-59](https://user-images.githubusercontent.com/37438950/112754741-59a93700-8fd5-11eb-93e5-7fb1e08679a5.png)
+
