@@ -1,7 +1,7 @@
 
 import { MongoClient } from "mongodb";
 const client = new MongoClient(
-    "mongodb://localhost:27017", 
+    "mongodb://mongo:27017", 
     { useUnifiedTopology: true, }
 );
 
@@ -13,6 +13,9 @@ class Database {
         console.log("Connecting to mongo server");
         await client.connect();
         this.db = client.db(Database.DB_NAME);
+
+        // Just wipe here for demo purposes
+        await this.db.dropDatabase();
 
         console.log("Connected to mongo server");
     }

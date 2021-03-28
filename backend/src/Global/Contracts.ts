@@ -6,6 +6,6 @@ export const CONTRACTS = {
         BookingsArtifact.address, 
         BookingsArtifact.abi, 
         //@ts-ignore
-        new ethers.getDefaultProvider("http://localhost:7545")
+        new ethers.getDefaultProvider("http://ganache:8545")
     ),
 };

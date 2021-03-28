@@ -11,7 +11,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.DATABASE = void 0;
 const mongodb_1 = require("mongodb");
-const client = new mongodb_1.MongoClient("mongodb://localhost:27017", { useUnifiedTopology: true, });
+const client = new mongodb_1.MongoClient("mongodb://mongo:27017", { useUnifiedTopology: true, });
 class Database {
     init() {
         return __awaiter(this, void 0, void 0, function* () {

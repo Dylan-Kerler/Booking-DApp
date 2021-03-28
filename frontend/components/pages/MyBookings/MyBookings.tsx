@@ -24,7 +24,7 @@ export const MyBookings = () => {
             <MainTitle style={{ marginBottom: 12 }}>My Bookings.</MainTitle>
 
             {
-                accountBookings ? 
+                accountBookings?.length > 0 ? 
                     accountBookings.map(({ companyId, hour, roomId }: RoomInfo) =>
                         <div style={{ display: "grid", gridTemplateColumns: "1fr auto auto", width: "fit-content", columnGap: 5 }}>
                             <MinorTitle>{companyId === 1 ? "Coca Cola" : "Pepsi"} Room {roomId}</MinorTitle>
@@ -33,7 +33,11 @@ export const MyBookings = () => {
                             <TextButton 
                                 onClick={async () => {
                                     try {
-                                        const tx = await BookingsContract.cancelReservation(1, 1, 1, { gasLimit: 1_000_000 });
+                                        const tx = await BookingsContract.cancelReservation(
+                                            companyId, 
+                                            roomId, hour, 
+                                            { gasLimit: 1_000_000 }
+                                        );
                                         const { transactionHash, status, } = await tx.wait();
                                         setNotifications(notifications.concat({ 
                                             content: `Confirmed Tx: ${shortenAddress(transactionHash)}`, 

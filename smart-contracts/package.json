@@ -4,7 +4,8 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "start-ganache": "ganache-cli -p 7545 --account=0xd81780450e195fc89a88f3221b1a9410f1904fbe224b35818010b07eada8ddb3,1000000000000000000000"
+    "start-ganache": "ganache-cli -p 8545 --account=0xd81780450e195fc89a88f3221b1a9410f1904fbe224b35818010b07eada8ddb3,1000000000000000000000",
+    "deploy-ganache": "npx hardhat --network ganache deploy"
   },
   "dependencies": {
     "@nomiclabs/hardhat-ethers": "^2.0.2",
@@ -12,11 +13,11 @@
     "chai": "^4.3.4",
     "ethereum-waffle": "^3.3.0",
     "ethers": "^5.0.32",
+    "ganache-cli": "^6.12.2",
     "hardhat": "^2.1.2",
     "hardhat-deploy": "^0.7.0-beta.50",
     "hardhat-deploy-ethers": "^0.3.0-beta.7",
     "hardhat-ethers": "^1.0.1",
-    "hardhat-waffle": "^0.0.1-security",
-    "styled-components": "^5.2.1"
+    "hardhat-waffle": "^0.0.1-security"
   }
 }

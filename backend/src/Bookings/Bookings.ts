@@ -21,7 +21,7 @@ class Bookings {
             roomId = roomId.toNumber();
             hour = hour.toNumber();
 
-            console.log(companyId, roomId, hour, from);
+            console.log("BOOKING", companyId, roomId, hour, from);
 
             BOOKINGS_COLLECTIONS.accountBookingsCollection.updateOne(
                 { companyId, roomId, hour, account: from },
@@ -38,8 +38,26 @@ class Bookings {
     }
 
     async listenForCancellations() {
-        // console.log("Listening for new bookings...");
+        console.log("Listening for cancellations...");
 
+        // Insert into mongoDB here
+        this.contract.on("Cancellation", (from, companyId, roomId, hour) => {
+            companyId = companyId.toNumber();
+            roomId = roomId.toNumber();
+            hour = hour.toNumber();
+
+            console.log("DELETING", companyId, roomId, hour, from);
+
+            BOOKINGS_COLLECTIONS.accountBookingsCollection.deleteMany(
+                { companyId, roomId, hour, account: from },
+            );
+
+            BOOKINGS_COLLECTIONS.roomWaitingListCollection.updateOne(
+                { companyId, roomId, hour, waiting: { "$gt": 0 }},
+                {  "$inc": { waiting: -1 }},
+                { upsert: true },
+            );
+        });
     }
 }
 

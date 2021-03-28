@@ -55,8 +55,6 @@ export const useBookings = () => {
 
                 setRooms(mapping);
             });
-
-        
     }, []);
 
     useEffect(() => {

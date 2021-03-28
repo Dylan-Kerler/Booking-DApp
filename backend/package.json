@@ -5,6 +5,7 @@
   "license": "MIT",
   "scripts": {
     "dev": "tsc --watch",
+    "build": "tsc",
     "start": "node ./dist/backend/src/index.js"
   },
   "dependencies": {
