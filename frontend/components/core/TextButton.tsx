@@ -16,17 +16,17 @@ const TextUnderline = styled.div`
 `;
 
 export const TextButton: React.FC<React.HTMLAttributes<HTMLElement>> = ({ children, color, ...props }) => {
-const [isHovered, setIsHovered] = useState(false);
+    const [isHovered, setIsHovered] = useState(false);
 
-return (
-    <div style={{ position: "relative", width: "fit-content", }} {...props}>
-        <TextButtonContainer 
-            onMouseOver={() => setIsHovered(true)} 
-            onMouseLeave={() => setIsHovered(false)} 
-        >
-            {children}
-        </TextButtonContainer>
-        <TextUnderline color={color} style={{ width: isHovered ? "100%" : "0%", }}/>
-    </div>
-);
+    return (
+        <div style={{ position: "relative", width: "fit-content", }} {...props}>
+            <TextButtonContainer 
+                onMouseOver={() => setIsHovered(true)} 
+                onMouseLeave={() => setIsHovered(false)} 
+            >
+                {children}
+            </TextButtonContainer>
+            <TextUnderline color={color} style={{ width: isHovered ? "100%" : "0%", }}/>
+        </div>
+    );
 }
