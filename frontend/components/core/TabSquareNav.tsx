@@ -57,11 +57,11 @@ export const TabSquareNav = ({ items, selected, onChange, }: PropTypes<string | 
                 items.map(({ label, value }) =>
                     <SquareOption
                         selected={value === _selected}
+                        ref={e => optionRefs.current[value] = e}
                         onClick={() => {
                             setInternalSelected(value);
                             onChange(value);
                         }}
-                        ref={e => optionRefs.current[value] = e}
                     >
                         {label}
                     </SquareOption>
